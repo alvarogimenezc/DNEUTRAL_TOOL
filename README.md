@@ -16,7 +16,7 @@ This mechanism ensures that leverage is distributed smoothly and helps maintain 
 
 ## The Tool  
 This project contains a Python module for each exchange pipeline, designed to:  
-- Connect to the public *funding history* endpoint.  
+- Connect to the public funding history endpoint.  
 - Retrieve funding rate data.  
 - Standarize the output so results are consistent across all three exchanges.  
 
