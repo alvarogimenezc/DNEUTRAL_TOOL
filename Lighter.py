@@ -35,7 +35,7 @@ data_funding = response_funding.json()
 fundings=[]
 for posicion in data_funding["fundings"]: 
     print(posicion)
-    fundings.append(float(posicion["rate"])*10000)
+    fundings.append(float(posicion["rate"])*24*365) #Lo pasamos a APR
 
 fechas=[]
 for posicion in data_funding["fundings"]:

@@ -16,7 +16,6 @@ rango_dias=1
 # Rango de días
 granularidad = rango_dias * 24 * 60 * 60 * 1000
 tiempo_actual = int(time.time() * 1000)
-print(datetime.fromtimestamp(tiempo_actual/1000))
 
 params = {
     "type": "fundingHistory",
@@ -33,7 +32,7 @@ data = response.json()
 fundings=[]
 for posicion in data: 
     print(posicion)
-    fundings.append(float(posicion["fundingRate"]))
+    fundings.append(float(posicion["fundingRate"])* 24 * 365 *100) #Lo pasamos a APR
 
 fechas=[]
 for posicion in data: 
