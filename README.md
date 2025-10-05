@@ -14,7 +14,7 @@ This mechanism ensures that leverage is distributed smoothly and helps maintain 
 
 ---
 
-## Why Delta-Neutral?  
+## Delta-Neutral strategy?  
 Since each exchange has its own markets and liquidity, it’s common to find differences in funding rates for the same asset across different DEXes.  
 
 A delta-neutral strategy takes advantage of this:  
@@ -33,4 +33,5 @@ This project contains a Python module for each exchange, designed to:
 
 The main script orchestrates the three API requests, aggregates the data, and runs analyses on possible delta-neutral strategies.  
 Finally, the results are presented to the user.
+The project is still in development, stay tuned for further updates. 
 
