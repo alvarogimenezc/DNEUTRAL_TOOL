@@ -18,8 +18,8 @@ for values in data_nombres["order_book_details"]:
     diccionario_id_moneda[str(values["symbol"])]=values["market_id"]
 
 #Definimos los parámetros de búsqueda
-moneda = diccionario_id_moneda["BTC"]
-rango_dias=1
+moneda = diccionario_id_moneda["HYPE"]
+rango_dias=5
 granularidad = rango_dias * 24 * 60 * 60 * 1000
 T1 = int(time.time() * 1000)
 T2 = T1 - granularidad
