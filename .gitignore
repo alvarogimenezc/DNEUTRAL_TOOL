@@ -1,0 +1,3 @@
+#Ignorar archivos
+Venv_Activate.bash
+__pycache__/
