@@ -1,39 +1,50 @@
 import requests
 import time
+import sys
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-#Public endpoint for Paradex frate API https://docs.paradex.trade/api/testnet/markets/get-funding-data
-
-#Definimos parametros de la consulta
-moneda="ETH"
-rango_dias=1
-granularidad = rango_dias * 24 * 60 * 60 * 1000
+# Parámetros
+moneda = "ETH"
+rango_dias = 1
+granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms en X días
 tiempo_actual = int(time.time() * 1000)
 
-#Creamos diccionario de clave-id
-diccionario_mercados={}
-headers = {
-  'Accept': 'application/json'
-}
-respuesta_mercados = requests.get('https://api.testnet.paradex.trade/v1/markets', headers = headers).json()
+# Obtener símbolos PERP
+diccionario_mercados = {}
+headers = {'Accept': 'application/json'}
+respuesta_mercados = requests.get('https://api.testnet.paradex.trade/v1/markets', headers=headers).json()
 for values in respuesta_mercados["results"]:
-    if values["asset_kind"]=="PERP":
-        diccionario_mercados[values["base_currency"]]=values["symbol"]
+    if values["asset_kind"] == "PERP":
+        diccionario_mercados[values["base_currency"]] = values["symbol"]
 
-#Ejecutamos la consulta
-headers = {
-  'Accept': 'application/json'}
-
+# Consulta inicial
 params = {
     "market": diccionario_mercados[moneda],
-    "start_at": int(time.time() * 1000) - granularidad,
-    "end_at": int(time.time() * 1000)}
+    "start_at": tiempo_actual - granularidad,
+    "end_at": tiempo_actual,
+    "page_size": 5000
+}
 
-response = requests.get('https://api.testnet.paradex.trade/v1/funding/data', params=params, headers = headers)
-data_funding=response.json()["results"]
+response = requests.get('https://api.testnet.paradex.trade/v1/funding/data', params=params, headers=headers)
+data_json = response.json()
+data_funding = data_json["results"]
+
+# Seguimos pidiendo paginas y añadimos al resultado
+while "next" in data_json and data_json["next"]:
+    next_cursor = data_json["next"]
+    params = {
+        "cursor": next_cursor,
+        "market": diccionario_mercados[moneda],
+        "page_size": 5000
+    }
+    response = requests.get('https://api.testnet.paradex.trade/v1/funding/data', params=params, headers=headers)
+    data_json = response.json()
+    data_funding.extend(data_json.get("results", []))  # añadimos los nuevos registros a la lista resultados
 
 print(data_funding)
+
+sys.exit()
 
 #Creamos los ejes de la gráfica
 fundings=[]
