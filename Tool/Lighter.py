@@ -19,7 +19,7 @@ for values in data_nombres["order_book_details"]:
 
 #Definimos los parámetros de búsqueda
 moneda = diccionario_id_moneda["HYPE"]
-rango_dias=5
+rango_dias=1
 granularidad = rango_dias * 24 * 60 * 60 * 1000
 T1 = int(time.time() * 1000)
 T2 = T1 - granularidad

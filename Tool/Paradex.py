@@ -5,7 +5,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 # Parámetros
-moneda = "BTC"
+moneda = "AAVE"
 rango_dias = 1
 granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms en X días
 tiempo_actual = int(time.time() * 1000)
@@ -21,7 +21,7 @@ for values in respuesta_mercados["results"]:
 # Consulta inicial
 params = {
     "market": diccionario_mercados[moneda],
-    "start_at": tiempo_actual - granularidad,
+    "start_at": int(tiempo_actual - granularidad),
     "end_at": tiempo_actual,
     "page_size": 5000
 }
@@ -42,13 +42,13 @@ while "next" in data_json and data_json["next"]:
     data_json = response.json()
     data_funding.extend(data_json.get("results", []))  # Añadimos los nuevos registros a la lista resultados
 
-#Ordenamos el resultado, la paginación ppuede ir desordenada
+#Ordenamos el resultado, la paginación puede ir desordenada
 data_funding = sorted(data_funding, key=lambda x: x["created_at"])
 
-#El json resultante tiene una granularidad de 5 segundos, lo convertimos a APR y granularidad horaria (average)
+#El json de salida muestra el funding pagado cada 5 segundos, integramos. 
 fundings=[]
 for posicion in data_funding: 
-    fundings.append(float(posicion["funding_rate"])*24*365) #Lo pasamos a APR
+    fundings.append(float(posicion["funding_rate"])) #Lo pasamos a APR
 
 fechas=[]
 for posicion in data_funding:
@@ -64,22 +64,23 @@ fechas_horarios=[]
 while i < len(fundings):
     try:
        while datetime.fromtimestamp(fechas[i] / 1000).hour==datetime.fromtimestamp(fechas[i+1] / 1000).hour: 
-         sumador= sumador+fundings[i]
+         sumador = sumador + fundings[i]
          cuentalocal+= 1                      
          i+=1
     except:
 
        break
 
-    fundings_horarios.append((sumador/cuentalocal))      #Promedio de valores para el rango horario iterado con el while, en APR
-    fechas_horarios.append(fechas[i]/1000)               #Nos quedamos con el último registro del rango horarioen milisegundos
+    fundings_horarios.append((sumador / cuentalocal) * 1095 * 100)                                 #Suma de fundings pagados en una hora
+    fechas_horarios.append(datetime.fromtimestamp(fechas[i]/1000))     #Nos quedamos con el último registro del rango horario en milisegundos
     i+=1
     sumador=0
     cuentalocal=0
 
 print(fechas_horarios)
+print(fundings_horarios)
 
-#Graficamos
+# Graficamos
 plt.figure(figsize=(12,6))
 plt.plot(fechas_horarios, fundings_horarios, marker="o", linestyle="-", color="blue", label="Funding rate")
 plt.axhline(0, color="red", linestyle="--", linewidth=1)
