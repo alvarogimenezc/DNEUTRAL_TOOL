@@ -17,6 +17,11 @@ def paradex(moneda, granularidad):
         if values["asset_kind"] == "PERP":
             diccionario_mercados[values["base_currency"]] = values["symbol"]
 
+    #Obtenemos ahora el perido de funding para la moenda en concreto
+    for values in respuesta_mercados["results"]:
+        if values["base_currency"]==moneda and values["asset_kind"]=="PERP": 
+            periodo_funding=values["funding_period_hours"]
+
     # Consulta inicial
     params = {
         "market": diccionario_mercados[moneda],
@@ -41,10 +46,10 @@ def paradex(moneda, granularidad):
         data_json = response.json()
         data_funding.extend(data_json.get("results", []))  # Añadimos los nuevos registros a la lista resultados
 
-    #Ordenamos el resultado, la paginación puede ir desordenada
+    # Ordenamos el resultado, la paginación puede ir desordenada
     data_funding = sorted(data_funding, key=lambda x: x["created_at"])
 
-    #El json de salida muestra el funding pagado cada 5 segundos, integramos. 
+    # El json de salida muestra el funding pagado cada 5 segundos, integramos. 
     fundings=[]
     for posicion in data_funding: 
         fundings.append(float(posicion["funding_rate"])) #Lo tenemos que pasar a APR
@@ -59,7 +64,7 @@ def paradex(moneda, granularidad):
     fundings_paradex=[]
     fechas_paradex=[]
 
-    #Output buscado: lista de promedio de funding horario en apr y lista de timestamps de ultimo registro del set horario
+    # Output buscado: lista de promedio de funding horario en apr y lista de timestamps de ultimo registro del set horario
     while i < len(fundings):
         try:
          while datetime.fromtimestamp(fechas[i] / 1000).hour==datetime.fromtimestamp(fechas[i+1] / 1000).hour: 
@@ -69,10 +74,9 @@ def paradex(moneda, granularidad):
         except:
          break
 
-        fundings_paradex.append((sumador / cuentalocal) * 24 * 365 *100)  #Suma de fundings pagados en una hora
-        fechas_paradex.append(datetime.fromtimestamp(fechas[i]/1000))     #Nos quedamos con el último registro del rango horario en milisegundos
+        fundings_paradex.append((sumador / cuentalocal) * 24 * 365 *100 / periodo_funding)  # Suma de fundings pagados en una hora
+        fechas_paradex.append(datetime.fromtimestamp(fechas[i]/1000))     # Nos quedamos con el último registro del rango horario en milisegundos
         i+=1
         sumador=0
         cuentalocal=0
-
-    return(fundings_paradex, fechas_paradex)
+    return(fundings_paradex)

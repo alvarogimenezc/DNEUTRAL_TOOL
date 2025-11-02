@@ -1,0 +1,12 @@
+#Configuramos parámetros de ejecución
+
+monedas: 
+  - BTC
+  - ETH
+  - KAITO
+  - IP
+  - ZORA
+  - SOL
+  - STRK
+
+granularidad: 1

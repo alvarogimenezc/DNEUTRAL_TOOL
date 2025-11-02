@@ -8,7 +8,7 @@ def hyperliquid(moneda, granularidad):
     url = "https://api.hyperliquid.xyz/info"
     headers = {"Content-Type": "application/json"}
 
-    #Insertamos los parámetros de búsqueda
+    # Insertamos los parámetros de búsqueda
     moneda=moneda
     rango_dias=granularidad
     granularidad = rango_dias * 24 * 60 * 60 * 1000
@@ -25,14 +25,14 @@ def hyperliquid(moneda, granularidad):
     response = requests.post(url, headers=headers, json=params)
     data = response.json()
 
-    #Creamos los ejes de la gráfica
+    # Creamos los ejes de la gráfica
     fundings_hyperliquid=[]
     for posicion in data: 
-        fundings_hyperliquid.append(float(posicion["fundingRate"])* 24 * 365 *100) #Lo pasamos a APR
+        fundings_hyperliquid.append(float(posicion["fundingRate"])* 24 * 365 *100) # Lo pasamos a APR
 
     fechas_hyperliquid=[]
     for posicion in data: 
         fechas_hyperliquid.append(datetime.fromtimestamp(posicion["time"] / 1000))
 
-    return(fundings_hyperliquid, fechas_hyperliquid)
+    return(fundings_hyperliquid)
 
