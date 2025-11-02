@@ -79,4 +79,5 @@ def paradex(moneda, granularidad):
         i+=1
         sumador=0
         cuentalocal=0
-    return(fundings_paradex)
+        
+    return(fundings_paradex, fechas_paradex)

@@ -34,5 +34,5 @@ def hyperliquid(moneda, granularidad):
     for posicion in data: 
         fechas_hyperliquid.append(datetime.fromtimestamp(posicion["time"] / 1000))
 
-    return(fundings_hyperliquid)
+    return(fundings_hyperliquid, fechas_hyperliquid)
 

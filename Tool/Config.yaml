@@ -1,12 +1,24 @@
 #Configuramos parámetros de ejecución
 
 monedas: 
-  - BTC
-  - ETH
-  - KAITO
-  - IP
-  - ZORA
-  - SOL
-  - STRK
+  #- BTC
+  #- ETH
+  #- KAITO
+  #- IP
+  #- ZORA
+  #- SOL
+  #- TRUMP
+  #- BNB
+  #- MORPHO
+  #- 0G
+  #- MET
+  - AVNT
+  #- WLD
+  #- ZEC
+  #- TIA
+  #- HYPE
+  #- PAXG
+  #- LINK
+  #- JUP
 
 granularidad: 1

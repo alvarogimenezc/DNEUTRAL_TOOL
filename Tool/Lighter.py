@@ -41,4 +41,4 @@ def lighter(moneda, granularidad):
     for posicion in data_funding["fundings"]:
         fechas_lighter.append(datetime.fromtimestamp(posicion["timestamp"] / 1000))
 
-    return(fundings_lighter)
+    return(fundings_lighter, fechas_lighter)
