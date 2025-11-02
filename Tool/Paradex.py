@@ -5,7 +5,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 # Parámetros
-moneda = "AAVE"
+moneda = "VIRTUAL"
 rango_dias = 1
 granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms en X días
 tiempo_actual = int(time.time() * 1000)
@@ -13,7 +13,7 @@ tiempo_actual = int(time.time() * 1000)
 # Obtener símbolos PERP
 diccionario_mercados = {}
 headers = {'Accept': 'application/json'}
-respuesta_mercados = requests.get('https://api.testnet.paradex.trade/v1/markets', headers=headers).json()
+respuesta_mercados = requests.get('https://api.prod.paradex.trade/v1/markets', headers=headers).json()
 for values in respuesta_mercados["results"]:
     if values["asset_kind"] == "PERP":
         diccionario_mercados[values["base_currency"]] = values["symbol"]
@@ -26,7 +26,7 @@ params = {
     "page_size": 5000
 }
 
-response = requests.get('https://api.testnet.paradex.trade/v1/funding/data', params=params, headers=headers)
+response = requests.get('https://api.prod.paradex.trade/v1/funding/data', params=params, headers=headers)
 data_json = response.json()
 data_funding = data_json["results"]
 
@@ -38,7 +38,7 @@ while "next" in data_json and data_json["next"]:
         "market": diccionario_mercados[moneda],
         "page_size": 5000
     }
-    response = requests.get('https://api.testnet.paradex.trade/v1/funding/data', params=params, headers=headers)
+    response = requests.get('https://api.prod.paradex.trade/v1/funding/data', params=params, headers=headers)
     data_json = response.json()
     data_funding.extend(data_json.get("results", []))  # Añadimos los nuevos registros a la lista resultados
 
@@ -48,7 +48,7 @@ data_funding = sorted(data_funding, key=lambda x: x["created_at"])
 #El json de salida muestra el funding pagado cada 5 segundos, integramos. 
 fundings=[]
 for posicion in data_funding: 
-    fundings.append(float(posicion["funding_rate"])) #Lo pasamos a APR
+    fundings.append(float(posicion["funding_rate"])) #Lo tenemos que pasar a APR
 
 fechas=[]
 for posicion in data_funding:
@@ -71,7 +71,7 @@ while i < len(fundings):
 
        break
 
-    fundings_horarios.append((sumador / cuentalocal) * 1095 * 100)                                 #Suma de fundings pagados en una hora
+    fundings_horarios.append((sumador / cuentalocal) * 3 * 365 * 100)                         #Suma de fundings pagados en una hora
     fechas_horarios.append(datetime.fromtimestamp(fechas[i]/1000))     #Nos quedamos con el último registro del rango horario en milisegundos
     i+=1
     sumador=0
