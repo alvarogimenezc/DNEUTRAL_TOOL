@@ -1,4 +1,4 @@
 #Configuramos parámetros de ejecución
 
-Coin: "BTC"
+Coins: "BTC"
 Days_analysis: 3
