@@ -5,7 +5,7 @@ from datetime import datetime
 import matplotlib.pyplot as plt
 
 # Parámetros
-moneda = "VIRTUAL"
+moneda = "AVNT"
 rango_dias = 1
 granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms en X días
 tiempo_actual = int(time.time() * 1000)
@@ -44,6 +44,7 @@ while "next" in data_json and data_json["next"]:
 
 #Ordenamos el resultado, la paginación puede ir desordenada
 data_funding = sorted(data_funding, key=lambda x: x["created_at"])
+print(data_funding)
 
 #El json de salida muestra el funding pagado cada 5 segundos, integramos. 
 fundings=[]
@@ -71,14 +72,11 @@ while i < len(fundings):
 
        break
 
-    fundings_horarios.append((sumador / cuentalocal) * 3 * 365 * 100)                         #Suma de fundings pagados en una hora
+    fundings_horarios.append((sumador / cuentalocal) * 24 * 365 *100)                         #Suma de fundings pagados en una hora
     fechas_horarios.append(datetime.fromtimestamp(fechas[i]/1000))     #Nos quedamos con el último registro del rango horario en milisegundos
     i+=1
     sumador=0
     cuentalocal=0
-
-print(fechas_horarios)
-print(fundings_horarios)
 
 # Graficamos
 plt.figure(figsize=(12,6))

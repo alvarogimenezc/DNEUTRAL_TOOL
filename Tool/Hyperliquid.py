@@ -10,7 +10,7 @@ url = "https://api.hyperliquid.xyz/info"
 headers = {"Content-Type": "application/json"}
 
 #Insertamos los parámetros de búsqueda
-moneda="BTC"
+moneda="KAITO"
 rango_dias=1
 granularidad = rango_dias * 24 * 60 * 60 * 1000
 tiempo_actual = int(time.time() * 1000)

@@ -18,7 +18,7 @@ for values in data_nombres["order_book_details"]:
     diccionario_id_moneda[str(values["symbol"])]=values["market_id"]
 
 #Definimos los parámetros de búsqueda
-moneda = diccionario_id_moneda["HYPE"]
+moneda = diccionario_id_moneda["KAITO"]
 rango_dias=1
 granularidad = rango_dias * 24 * 60 * 60 * 1000
 T1 = int(time.time() * 1000)
@@ -32,10 +32,14 @@ response_funding = requests.get(url_funding, headers=headers_funding)
 data_funding = response_funding.json()
 
 #Creamos los ejes de la gráfica
+#Mucho ojo, la rate es siempre +, el signo short o long da el signo del funding
 fundings=[]
 for posicion in data_funding["fundings"]: 
     print(posicion)
-    fundings.append(float(posicion["rate"])*24*365) #Lo pasamos a APR
+    if posicion['direction']=="long":
+       fundings.append(float(posicion["rate"])*24*365) #Lo pasamos a APR
+    else: 
+       fundings.append(-float(posicion["rate"])*24*365) #Lo pasamos a APR
 
 fechas=[]
 for posicion in data_funding["fundings"]:
