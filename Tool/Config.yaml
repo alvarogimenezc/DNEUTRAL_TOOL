@@ -1,18 +1,18 @@
 #Configuramos parámetros de ejecución
 
 monedas: 
-  #- BTC
-  #- ETH
-  #- KAITO
-  #- IP
-  #- ZORA
-  #- SOL
-  #- TRUMP
-  #- BNB
-  #- MORPHO
+  - BTC
+  - ETH
+  - KAITO
+  - IP
+  - ZORA
+  - SOL
+  - TRUMP
+  - BNB
+  - MORPHO
   #- 0G
   #- MET
-  - AVNT
+  #- AVNT
   #- WLD
   #- ZEC
   #- TIA
