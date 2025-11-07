@@ -6,6 +6,7 @@ from lighter import lighter
 from paradex import paradex
 from plotter import plotter
 from analyzer import analyzer
+from dashboard import dashboard
 
 # Guarda el tiempo de inicio
 tiempo_inicio = time.time()
@@ -16,6 +17,7 @@ with open("Config.yaml", "r", encoding="utf-8") as file:
 
 monedas = config["monedas"]
 granularidad = config["granularidad"]
+dataset_resultante=[]
 
 # Iteramos sobre los datos de configuración. 
 for moneda in monedas: 
@@ -34,15 +36,17 @@ for moneda in monedas:
         fundings_paradex, fechas_paradex= paradex(moneda, granularidad)
     except:
         fundings_paradex, fechas_paradex=[], []
+    
+    #Ejecutamos el analizador de estrategias
+    resultados=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
 
-    #Aquí habria que meter un ID de la estrategia y mostrarlo en formato de lista recursivamente, ordenado de mayor a menor APR
-    output1, output2, output3=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
-    if output1!=[]:
-        print(output1)
-    if output2!=[]:
-        print(output2)
-    if output3!=[]:
-        print(output3)
+    # Juntamos todos los resultados en una lista y la ordenamos por APR
+    for r in resultados:
+        dataset_resultante.append(r)
+
+    dataset_resultante.sort(key=lambda x: x[2], reverse=True)
+
+dashboard(dataset_resultante)
 
 # Calcula y muestra el tiempo de ejecución
 tiempo_fin = time.time()

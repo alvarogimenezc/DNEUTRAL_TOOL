@@ -53,7 +53,7 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
             if hyper_apr > 0: 
                delta_para_hype=["Paradex", "Hyperliquid", hyper_apr - paradex_apr]
             else: 
-               delta_para_hype=["Hyperliquid", "Paradex", hyper_apr - paradex_apr]
+               delta_para_hype=["Hyperliquid", "Paradex", -hyper_apr + paradex_apr]
         delta_para_hype.append(moneda)
 
 
@@ -76,7 +76,7 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
             if lighter_apr > 0: 
                delta__para_lig=["Paradex", "Lighter", lighter_apr - paradex_apr]
             else: 
-               delta__para_lig=["Lighter", "Paradex", lighter_apr - paradex_apr]
+               delta__para_lig=["Lighter", "Paradex", -lighter_apr + paradex_apr]
         delta__para_lig.append(moneda)
  
     #Lets run the simulations hyperliquid-lighter, after checking both coins are available
@@ -98,7 +98,7 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
             if lighter_apr > 0: 
                delta_lig_hype=["Hyperliquid", "Lighter", lighter_apr - hyper_apr]
             else: 
-               delta_lig_hype=["Lighter", "Hyperliquid", lighter_apr - hyper_apr]
+               delta_lig_hype=["Lighter", "Hyperliquid", +lighter_apr - hyper_apr]
         delta_lig_hype.append(moneda)
     
     return(delta_para_hype, delta__para_lig, delta_lig_hype)

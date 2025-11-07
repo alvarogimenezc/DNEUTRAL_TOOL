@@ -6,37 +6,37 @@ monedas:
   - KAITO
   - ZORA
   - IP
-  - SOL
-  - TRUMP
-  - BNB
-  - MORPHO
-  - 0G
-  - MET
-  - AVNT
-  - WLD
-  - ZEC
-  - TIA
-  - HYPE
-  - PAXG
-  - LINK
-  - JUP
-  - OM
-  - BERA
-  - MEGA
-  - HYPER
-  - STRK
-  - LINEA
-  - GRASS
-  - PURR
-  - WLFI
-  - TON
-  - SKY
-  - DOT
-  - ZRO 
-  - ENA
-  - POPCAT
-  - WIF 
-  - MELANIA
-  - ETHFI
+  # - SOL
+  # - TRUMP
+  # - BNB
+  # - MORPHO
+  # - 0G
+  # - MET
+  # - AVNT
+  # - WLD
+  # - ZEC
+  # - TIA
+  # - HYPE
+  # - PAXG
+  # - LINK
+  # - JUP
+  # - OM
+  # - BERA
+  # - MEGA
+  # - HYPER
+  # - STRK
+  # - LINEA
+  # - GRASS
+  # - PURR
+  # - WLFI
+  # - TON
+  # - SKY
+  # - DOT
+  # - ZRO 
+  # - ENA
+  # - POPCAT
+  # - WIF 
+  # - MELANIA
+  # - ETHFI
 
-granularidad: 3
+granularidad: 1
