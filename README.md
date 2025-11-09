@@ -11,7 +11,7 @@ The strategy is based on opening a long position in the exchange a and a short p
 ## About The Tool  
 The project is structured in two docker containers:
 
-- The api_calculator container serves as the brain, it retrieves the data form the public funding endpoint of each exchange and runs analysis of posible strategies. This container executes the requests once an hour. Data is then stored in a shared volume with a json dictionary. 
+- The api_calculator container serves as the brain, it retrieves the data form the public funding endpoint of each exchange and analyzes potential delta neutral strategies. This container executes the requests once an hour. Data is then stored in a shared volume with a json dictionary. 
 - The streamlit_app container takes the json file to make the web view and allow the user filter the data smoothly. 
 
 With this architecture we are able to avoid the problem of recalculation that streamlit library has. If this separation wasn't designed, for each user interaction all the api requests would be made, adding no updates at all and blocking the app for many minutes until finished. 
