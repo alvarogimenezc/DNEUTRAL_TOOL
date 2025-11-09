@@ -1,19 +1,19 @@
-#This dashboard uses stremalit to show the results 
+#This dashboard uses stremalit library to show the results 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 
 def dashboard(dataset_resultante, dict_series): 
 
-    #Insertamos el título de la web
+    #Insert the web title
     st.title("Dashboard estrategias delta neutral")
 
-    #Creamos la tabla para mostrar los resultados, necesitaremos pandas 
+    #Create the table to show the results, we need pandas lib 
     st.subheader("Tabla comprarativa resultados")
     df = pd.DataFrame(dataset_resultante, columns=["LARGO 📈", "CORTO 📉", "APR % 🔼", "MONEDA 🪙"])
     st.dataframe(df)
 
-     #Creamos ahora el gráfico interactivo de fundings por moneda y exchange
+     #Lets create the chart for a given coin/dex
     st.subheader("📈 Evolución de Fundings por Exchange y Moneda")
 
     if not dict_series:
@@ -54,4 +54,4 @@ def dashboard(dataset_resultante, dict_series):
 
         st.plotly_chart(fig, width=True)
     else:
-        st.warning("No hay datos disponibles para esa combinación seleccionada.")
+        pass
