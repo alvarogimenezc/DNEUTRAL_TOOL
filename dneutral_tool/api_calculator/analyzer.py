@@ -39,21 +39,21 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
 
         if hyper_apr > 0 and paradex_apr > 0: 
             if hyper_apr < paradex_apr:
-                delta_para_hype=["Hyperliquid", "Paradex", paradex_apr - hyper_apr]
+                delta_para_hype=["Hyperliquid", "Paradex", round(paradex_apr - hyper_apr,2)]
             else:
-                delta_para_hype=["Paradex", "Hyperliquid", hyper_apr - paradex_apr]
+                delta_para_hype=["Paradex", "Hyperliquid", round(hyper_apr - paradex_apr,2)]
         
         elif hyper_apr < 0 and paradex_apr < 0: 
             if hyper_apr < paradex_apr:
-                delta_para_hype=["Hyperliquid", "Paradex", paradex_apr - hyper_apr]
+                delta_para_hype=["Hyperliquid", "Paradex", round(paradex_apr - hyper_apr,2)]
             else:
-                delta_para_hype=["Paradex", "Hyperliquid", hyper_apr - paradex_apr]
+                delta_para_hype=["Paradex", "Hyperliquid", round(hyper_apr - paradex_apr,2)]
 
         else:
             if hyper_apr > 0: 
-               delta_para_hype=["Paradex", "Hyperliquid", hyper_apr - paradex_apr]
+               delta_para_hype=["Paradex", "Hyperliquid", round(hyper_apr - paradex_apr,2)]
             else: 
-               delta_para_hype=["Hyperliquid", "Paradex", -hyper_apr + paradex_apr]
+               delta_para_hype=["Hyperliquid", "Paradex", round(-hyper_apr + paradex_apr,2)]
         delta_para_hype.append(moneda)
 
 
@@ -62,21 +62,21 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
 
         if lighter_apr > 0 and paradex_apr > 0: 
             if lighter_apr < paradex_apr:
-                delta__para_lig=["Lighter", "Paradex", paradex_apr - lighter_apr]
+                delta__para_lig=["Lighter", "Paradex", round(paradex_apr - lighter_apr,2)]
             else:
-                delta__para_lig=["Paradex", "Lighter", lighter_apr - paradex_apr]
+                delta__para_lig=["Paradex", "Lighter", round(lighter_apr - paradex_apr,2)]
         
         elif lighter_apr < 0 and paradex_apr < 0: 
             if lighter_apr < paradex_apr:
-                delta__para_lig=["Lighter", "Paradex", paradex_apr - lighter_apr]
+                delta__para_lig=["Lighter", "Paradex", round(paradex_apr - lighter_apr,2)]
             else:
-                delta__para_lig=["Paradex", "Lighter", lighter_apr - paradex_apr]
+                delta__para_lig=["Paradex", "Lighter", round(lighter_apr - paradex_apr,2)]
 
         else:
             if lighter_apr > 0: 
-               delta__para_lig=["Paradex", "Lighter", lighter_apr - paradex_apr]
+               delta__para_lig=["Paradex", "Lighter", round(lighter_apr - paradex_apr,2)]
             else: 
-               delta__para_lig=["Lighter", "Paradex", -lighter_apr + paradex_apr]
+               delta__para_lig=["Lighter", "Paradex", round(-lighter_apr + paradex_apr,2)]
         delta__para_lig.append(moneda)
  
     #Lets run the simulations hyperliquid-lighter, after checking both coins are available
@@ -84,21 +84,21 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
    
         if lighter_apr > 0 and hyper_apr > 0: 
             if lighter_apr < hyper_apr:
-                delta_lig_hype=["Lighter", "Hyperliquid", hyper_apr - lighter_apr]
+                delta_lig_hype=["Lighter", "Hyperliquid", round(hyper_apr - lighter_apr,2)]
             else:
-                delta_lig_hype=["Hyperliquid", "Lighter", lighter_apr - hyper_apr]
+                delta_lig_hype=["Hyperliquid", "Lighter", round(lighter_apr - hyper_apr,2)]
         
         elif lighter_apr < 0 and hyper_apr < 0: 
             if lighter_apr < hyper_apr:
-                delta_lig_hype=["Lighter", "Hyperliquid", hyper_apr - lighter_apr]
+                delta_lig_hype=["Lighter", "Hyperliquid", round(hyper_apr - lighter_apr,2)]
             else:
-                delta_lig_hype=["Hyperliquid", "Lighter", lighter_apr - hyper_apr]
+                delta_lig_hype=["Hyperliquid", "Lighter", round(lighter_apr - hyper_apr,2)]
 
         else:
             if lighter_apr > 0: 
-               delta_lig_hype=["Hyperliquid", "Lighter", lighter_apr - hyper_apr]
+               delta_lig_hype=["Hyperliquid", "Lighter", round(lighter_apr - hyper_apr,2)]
             else: 
-               delta_lig_hype=["Lighter", "Hyperliquid", +lighter_apr - hyper_apr]
+               delta_lig_hype=["Lighter", "Hyperliquid", round(-lighter_apr + hyper_apr,2)]
         delta_lig_hype.append(moneda)
     
     return(delta_para_hype, delta__para_lig, delta_lig_hype)

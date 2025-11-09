@@ -5,7 +5,7 @@ monedas:
   - ETH
   - KAITO
   - ZORA
-  - IP
+  # - IP
   # - SOL
   # - TRUMP
   # - BNB
@@ -24,6 +24,7 @@ monedas:
   # - BERA
   # - MEGA
   # - HYPER
+  # - XMR
   # - STRK
   # - LINEA
   # - GRASS

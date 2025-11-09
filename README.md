@@ -2,7 +2,7 @@
 This tool is designed to show and track differences between funding rates across 3 different decentralized exchanges: Hyperliquid, Lighter and Paradex.
 
 ## About Funding Rates and Delta-Neutral Strategies
-Funding rates are peer to peer fees that traders pay to mantain price stability. If a market is over-laveraged in the long direction, long traders will pay the funding fee to short traders. If the market is over-laveraged in the short direction, long traders will pay the funding fee to short traders. 
+Funding rates are peer to peer fees that traders pay to mantain price stability. If a market is over-laveraged in the long direction, long traders will pay the funding fee to short traders. If the market is over-laveraged in the short direction, short traders will pay the funding fee to long traders. 
 
 This mechanism ensures that the laverage remains smooth, and the price keeps stable compared to the oracle price. 
 
