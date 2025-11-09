@@ -3,13 +3,13 @@ import time
 from datetime import datetime
 
 def paradex(moneda, granularidad):
-    # Parámetros
+    #Parameters
     moneda = moneda
     rango_dias = granularidad
-    granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms en X días
+    granularidad = rango_dias * 24 * 60 * 60 * 1000  # ms in X days
     tiempo_actual = int(time.time() * 1000)
 
-    # Obtener símbolos PERP
+    #Obtain PERP symbols
     diccionario_mercados = {}
     headers = {'Accept': 'application/json'}
     respuesta_mercados = requests.get('https://api.prod.paradex.trade/v1/markets', headers=headers).json()
@@ -17,12 +17,12 @@ def paradex(moneda, granularidad):
         if values["asset_kind"] == "PERP":
             diccionario_mercados[values["base_currency"]] = values["symbol"]
 
-    #Obtenemos ahora el perido de funding para la moenda en concreto
+    #Now we obtain the funding period for the specific coin
     for values in respuesta_mercados["results"]:
         if values["base_currency"]==moneda and values["asset_kind"]=="PERP": 
             periodo_funding=values["funding_period_hours"]
 
-    # Consulta inicial
+    #Initial query
     params = {
         "market": diccionario_mercados[moneda],
         "start_at": int(tiempo_actual - granularidad),
@@ -34,7 +34,7 @@ def paradex(moneda, granularidad):
     data_json = response.json()
     data_funding = data_json["results"]
 
-    # Seguimos pidiendo paginas y añadimos al resultado
+    #We keep sending queries until all data is received
     while "next" in data_json and data_json["next"]:
         next_cursor = data_json["next"]
         params = {
@@ -44,15 +44,15 @@ def paradex(moneda, granularidad):
         }
         response = requests.get('https://api.prod.paradex.trade/v1/funding/data', params=params, headers=headers)
         data_json = response.json()
-        data_funding.extend(data_json.get("results", []))  # Añadimos los nuevos registros a la lista resultados
+        data_funding.extend(data_json.get("results", []))  #Add the new registers to the results list
 
-    # Ordenamos el resultado, la paginación puede ir desordenada
+    #Order the result, the page may be disordered
     data_funding = sorted(data_funding, key=lambda x: x["created_at"])
 
-    # El json de salida muestra el funding pagado cada 5 segundos, integramos. 
+    #The output json shows the funding paid for 5 seconds, we need to integrate
     fundings=[]
     for posicion in data_funding: 
-        fundings.append(float(posicion["funding_rate"])) #Lo tenemos que pasar a APR
+        fundings.append(float(posicion["funding_rate"])) #APR conversion
 
     fechas=[]
     for posicion in data_funding:
@@ -64,7 +64,7 @@ def paradex(moneda, granularidad):
     fundings_paradex=[]
     fechas_paradex=[]
 
-    # Output buscado: lista de promedio de funding horario en apr y lista de timestamps de ultimo registro del set horario
+    #Average hourly funding list in apr and timestamp list with the last register of the hourly set
     while i < len(fundings):
         try:
          while datetime.fromtimestamp(fechas[i] / 1000).hour==datetime.fromtimestamp(fechas[i+1] / 1000).hour: 
@@ -74,8 +74,8 @@ def paradex(moneda, granularidad):
         except:
          break
 
-        fundings_paradex.append((sumador / cuentalocal) * 24 * 365 *100 / periodo_funding)  # Suma de fundings pagados en una hora
-        fechas_paradex.append(datetime.fromtimestamp(fechas[i]/1000))     # Nos quedamos con el último registro del rango horario en milisegundos
+        fundings_paradex.append((sumador / cuentalocal) * 24 * 365 *100 / periodo_funding)  #Sum of raw funding paid in 1 hour
+        fechas_paradex.append(datetime.fromtimestamp(fechas[i]/1000))     #We keep the last register of the set
         i+=1
         sumador=0
         cuentalocal=0

@@ -1,4 +1,4 @@
-#Ignorar archivos
+#Ignore files
 Venv_Activate.sh
 __pycache__/
 .streamlit

@@ -1,4 +1,4 @@
-#Configuramos parámetros de ejecución
+#Params configuration
 
 monedas: 
   - BTC

@@ -8,21 +8,21 @@ from plotter import plotter
 from analyzer import analyzer
 from dashboard import dashboard
 
-# Guarda el tiempo de inicio
+#Save the initial time
 tiempo_inicio = time.time()
 
-# Cargamos configuración del yml
+#Load the configuration params
 with open("Config.yaml", "r", encoding="utf-8") as file:
     config = yaml.safe_load(file)
 
 monedas = config["monedas"]
-cuenta_monedas=len(config["monedas"])     #Sacamos la cuenta de las monedas para ver el progreso del análisis
+cuenta_monedas=len(config["monedas"])     #To track the execution
 granularidad = config["granularidad"]
 dataset_resultante=[]
 dict_series={}
 cuenta_analisis=0
 
-# Iteramos sobre los datos de configuración. 
+#Iterate over the configuration data
 for moneda in monedas: 
     
     try:
@@ -39,8 +39,8 @@ for moneda in monedas:
         fundings_paradex, fechas_paradex= paradex(moneda, granularidad)
     except:
         fundings_paradex, fechas_paradex=[], []
-    
-    #Necesitamos persistencia en las series devueltas de la api para los gráficos, guardamos en un diccionario
+
+    #We need persistency on the series returned by the api for the charts, saved in a dict
     if fundings_hyperliquid:
         dict_series[f"{moneda}_Hyperliquid"] = {
             "Exchange": "Hyperliquid",
@@ -65,17 +65,17 @@ for moneda in monedas:
             "Fechas": fechas_lighter
         }
 
-    #Ejecutamos el analizador de estrategias
+    #Execute the analyzer
     resultados=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
 
-    # Juntamos todos los resultados en una lista y la ordenamos por APR, no adjuntamos si no hay resultados del analisis
+    #Join the results in one list and order by apr, avoid empty results
     for r in resultados:
         if r!=[]:
            dataset_resultante.append(r)
 
     cuenta_analisis+=1
    
-    #Mostramos el progreso por cada 4 monedas analizadas
+    #Show the progress for each 4 token group
     if cuenta_analisis % 4 == 0 or cuenta_analisis==1 or cuenta_analisis==cuenta_monedas:
        print(f"{round((cuenta_analisis/cuenta_monedas)*100, 2)} % completado...")
 
@@ -83,6 +83,6 @@ for moneda in monedas:
 
 dashboard(dataset_resultante, dict_series)
 
-# Calcula y muestra el tiempo de ejecución
+#Show the execution time
 tiempo_fin = time.time()
 print(f"El código tardó: {round((tiempo_fin - tiempo_inicio)/60, 1)} minutos")

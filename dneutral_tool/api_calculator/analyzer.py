@@ -1,4 +1,3 @@
-
 #Run the funding alaysis for a given coin
 #Returns a list of the shape ["moneda", "dex1", "dex2", funding delta apr for the given period] the direction is long->short
 

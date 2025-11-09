@@ -4,11 +4,11 @@ from datetime import datetime
 
 def hyperliquid(moneda, granularidad):
 
-    # Endpoint oficial, usaremos POST por diseño de hyperliquid, se devuelve en horas
+    #Official endopt, PUT by hyperliquid design
     url = "https://api.hyperliquid.xyz/info"
     headers = {"Content-Type": "application/json"}
 
-    # Insertamos los parámetros de búsqueda
+    #Insert searching params
     moneda=moneda
     rango_dias=granularidad
     granularidad = rango_dias * 24 * 60 * 60 * 1000
@@ -21,11 +21,11 @@ def hyperliquid(moneda, granularidad):
         "endTime": tiempo_actual
     }
 
-    # Petición
+    #Request
     response = requests.post(url, headers=headers, json=params)
     data = response.json()
 
-    # Creamos los ejes de la gráfica
+    #Create output lists
     fundings_hyperliquid=[]
     for posicion in data: 
         fundings_hyperliquid.append(float(posicion["fundingRate"])* 24 * 365 *100) # Lo pasamos a APR
