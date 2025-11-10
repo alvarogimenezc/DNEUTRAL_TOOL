@@ -1,17 +1,17 @@
 import yaml
 import time
 
-from dneutral_tool.api_calculator.hyperliquid import hyperliquid
-from dneutral_tool.api_calculator.lighter import lighter
-from dneutral_tool.api_calculator.paradex import paradex
-from dneutral_tool.api_calculator.analyzer import analyzer
-from dneutral_tool.streamlit_app.dashboard import dashboard
+from hyperliquid import hyperliquid
+from lighter import lighter
+from paradex import paradex
+from analyzer import analyzer
+from dashboard import dashboard
 
 #Save the initial time
 tiempo_inicio = time.time()
 
 #Load the configuration params
-with open("dneutral_tool/config.yaml", "r", encoding="utf-8") as file:
+with open("config.yaml", "r", encoding="utf-8") as file:
     config = yaml.safe_load(file)
 
 monedas = config["monedas"]
