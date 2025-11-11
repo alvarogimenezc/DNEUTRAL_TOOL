@@ -10,7 +10,7 @@ from analyzer import analyzer
 
 while True: 
         #Load the configuration params
-        with open("api_calculator/config.yaml", "r", encoding="utf-8") as file:
+        with open("config.yaml", "r", encoding="utf-8") as file:
             config = yaml.safe_load(file)
 
         monedas = config["monedas"]     
@@ -83,7 +83,7 @@ while True:
         #Datetime format is not recognized by json, we need to transform it into iso text
         output_json["timestamp"] = output_json["timestamp"].isoformat()
 
-        # Convert all datetimes inside dict_series and dataset_resultante manually
+        #Convert all datetimes inside dict_series and dataset_resultante manually
         for key, value in output_json["dict_series"].items():
             if "Fechas" in value:
                 value["Fechas"] = [fecha.isoformat() for fecha in value["Fechas"]]
@@ -93,5 +93,5 @@ while True:
 
         print(f"Data updated. Timestamp: {datetime.now()}")
 
-        #Stop the code 1 hour until next update
+        #Stop the code 1 hour until next update 3600s
         time.sleep(60)

@@ -1,0 +1,16 @@
+services:
+
+ api_calculator:
+    image:  python:3.14-slim
+    working_dir: /api_calculator
+    command: sh -c "pip install-r requirements.txt && python main.py"
+    volumes: ./:/shared_data
+    
+    
+streamlit_app:
+    image:  python:3.14-slim
+    working_dir: /streamlit_app
+    command: sh -c "pip install-r requirements.txt && python main.py"
+    volumes: ./:/shared_data
+
+volumes: ./:/shared_data
