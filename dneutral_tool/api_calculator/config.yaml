@@ -1,7 +1,7 @@
 #Params configuration
 
 monedas: 
-  - BTC
+  - IP
   - ETH
   - KAITO
   - ZORA
@@ -40,4 +40,5 @@ monedas:
   - MELANIA
   - ETHFI
 
-granularidad: 1
+#Must be an integer to be OK for the apis
+granularidad: 3

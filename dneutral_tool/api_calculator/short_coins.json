@@ -1,0 +1,98 @@
+[
+  {
+    "Token": "MELANIA",
+    "Narrativa_Sector": "memecoin política",
+    "Riesgo": "EXTREMO",
+    "Apalancamiento": "3×–5×",
+    "Volatilidad": 1.00,
+    "Motivo": "memecoin derivada, wicks violentos, liquidez mínima"
+  },
+  {
+    "Token": "YZY",
+    "Narrativa_Sector": "micro-DeFi",
+    "Riesgo": "EXTREMO",
+    "Apalancamiento": "3×–5×",
+    "Volatilidad": 0.95,
+    "Motivo": "liquidez ultra baja, order book finísimo"
+  },
+  {
+    "Token": "EDEN",
+    "Narrativa_Sector": "MEV",
+    "Riesgo": "EXTREMO",
+    "Apalancamiento": "3×–5×",
+    "Volatilidad": 0.90,
+    "Motivo": "token muerto, sin adopción"
+  },
+  {
+    "Token": "STBL",
+    "Narrativa_Sector": "stable/RWA experimental",
+    "Riesgo": "ALTO (casi EXTREMO)",
+    "Apalancamiento": "3×–4×",
+    "Volatilidad": 0.90,
+    "Motivo": "TVL muy bajo, volatilidad alta, riesgo de unlocks"
+  },
+  {
+    "Token": "REZ",
+    "Narrativa_Sector": "restaking / AVS",
+    "Riesgo": "EXTREMO",
+    "Apalancamiento": "3×–5×",
+    "Volatilidad": 0.85,
+    "Motivo": "supply enorme, movimientos bruscos"
+  },
+  {
+    "Token": "WLD",
+    "Narrativa_Sector": "identidad / IA",
+    "Riesgo": "EXTREMO",
+    "Apalancamiento": "3×–5×",
+    "Volatilidad": 0.60,
+    "Motivo": "desbloqueos masivos + riesgo regulatorio"
+  },
+  {
+    "Token": "WCT",
+    "Narrativa_Sector": "interoperabilidad",
+    "Riesgo": "ALTO",
+    "Apalancamiento": "3×–4×",
+    "Volatilidad": 0.80,
+    "Motivo": "token sin utilidad, volatilidad elevada"
+  },
+  {
+    "Token": "DYM",
+    "Narrativa_Sector": "modular / rollapps",
+    "Riesgo": "ALTO",
+    "Apalancamiento": "3×–4×",
+    "Volatilidad": 0.75,
+    "Motivo": "ecosistema pequeño, mercado irregular"
+  },
+  {
+    "Token": "SCR",
+    "Narrativa_Sector": "L2 zk",
+    "Riesgo": "MEDIO-ALTO",
+    "Apalancamiento": "2×–3×",
+    "Volatilidad": 0.55,
+    "Motivo": "saturación, liquidez media"
+  },
+  {
+    "Token": "EIGEN",
+    "Narrativa_Sector": "restaking infra",
+    "Riesgo": "MEDIO-ALTO",
+    "Apalancamiento": "2×–3×",
+    "Volatilidad": 0.50,
+    "Motivo": "adopción incierta, depende del hype"
+  },
+  {
+    "Token": "ATOM",
+    "Narrativa_Sector": "Cosmos Hub",
+    "Riesgo": "MEDIO-ALTO",
+    "Apalancamiento": "2×–3×",
+    "Volatilidad": 0.35,
+    "Motivo": "token sin value capture, más estable"
+  },
+  {
+    "Token": "TIA",
+    "Narrativa_Sector": "modularidad",
+    "Riesgo": "MEDIO",
+    "Apalancamiento": "2×",
+    "Volatilidad": 0.40,
+    "Motivo": "hype modular bajando"
+  }
+]
