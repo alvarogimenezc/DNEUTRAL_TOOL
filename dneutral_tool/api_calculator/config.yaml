@@ -32,6 +32,7 @@ monedas:
   - WLFI
   - TON
   - SKY
+  - WCT
   - DOT
   - ZRO 
   - ENA
@@ -41,4 +42,4 @@ monedas:
   - ETHFI
 
 #Must be an integer to be OK for the apis
-granularidad: 3
+granularidad: 1

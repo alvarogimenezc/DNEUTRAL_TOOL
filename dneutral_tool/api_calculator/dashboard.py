@@ -1,26 +1,27 @@
-#This dashboard uses stremalit library to show the results 
+#This dashboard uses streamlit library to show the results 
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import json
 
 def dashboard(dataset_resultante, dict_series): 
 
     #Insert the web title
     st.title("Dashboard estrategias delta neutral")
 
-    #Create the table to show the results, we need pandas lib 
-    st.subheader("Tabla comprarativa resultados")
+    #Create the table to show the results
+    st.subheader("Tabla comparativa de resultados")
     df = pd.DataFrame(dataset_resultante, columns=["LARGO 📈", "CORTO 📉", "APR % 🔼", "MONEDA 🪙"])
     st.dataframe(df)
 
-     #Lets create the chart for a given coin/dex
+    #Evolución de fundings
     st.subheader("📈 Evolución de Fundings por Exchange y Moneda")
 
     if not dict_series:
         st.warning("No hay datos disponibles para graficar.")
         return
 
-    # Obtenemos listas únicas de exchanges y monedas
+    # Listas únicas
     exchanges = sorted({v["Exchange"] for v in dict_series.values()})
     monedas = sorted({v["Moneda"] for v in dict_series.values()})
 
@@ -53,5 +54,21 @@ def dashboard(dataset_resultante, dict_series):
         )
 
         st.plotly_chart(fig, width=True)
-    else:
+
+    #New section, shortable coins
+    st.markdown("---")
+    st.subheader("🚨 Altcoins con Fundamentales Débiles / Riesgo Alto")
+
+    try:
+        with open("short_coins.json", "r", encoding="utf-8") as f:
+            short_data = json.load(f)
+        df_short = pd.DataFrame(short_data)
+
+        # Mostrar tabla ordenada por riesgo y volatilidad
+        df_short["Volatilidad"] = pd.to_numeric(df_short["Volatilidad"], errors="coerce")
+        df_short = df_short.sort_values(by=["Riesgo", "Volatilidad"], ascending=[True, False])
+
+        st.dataframe(df_short, width=True)
+
+    except: 
         pass

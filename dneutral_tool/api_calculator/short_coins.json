@@ -1,19 +1,19 @@
 [
   {
     "Token": "MELANIA",
-    "Narrativa_Sector": "memecoin política",
+    "Narrativa_Sector": "Memecoin política",
     "Riesgo": "EXTREMO",
     "Apalancamiento": "3×–5×",
     "Volatilidad": 1.00,
-    "Motivo": "memecoin derivada, wicks violentos, liquidez mínima"
+    "Motivo": "Memecoin manipulada, mechas violentas. Sin utilidad."
   },
   {
     "Token": "YZY",
-    "Narrativa_Sector": "micro-DeFi",
+    "Narrativa_Sector": "Micro-DeFi",
     "Riesgo": "EXTREMO",
     "Apalancamiento": "3×–5×",
     "Volatilidad": 0.95,
-    "Motivo": "liquidez ultra baja, order book finísimo"
+    "Motivo": "Liquidez ultra baja, order book finísimo, movimientos amplios"
   },
   {
     "Token": "EDEN",
@@ -21,78 +21,78 @@
     "Riesgo": "EXTREMO",
     "Apalancamiento": "3×–5×",
     "Volatilidad": 0.90,
-    "Motivo": "token muerto, sin adopción"
+    "Motivo": "Token muerto, sin adopción"
   },
   {
     "Token": "STBL",
-    "Narrativa_Sector": "stable/RWA experimental",
-    "Riesgo": "ALTO (casi EXTREMO)",
+    "Narrativa_Sector": "Stable/RWA experimental",
+    "Riesgo": "ALTO",
     "Apalancamiento": "3×–4×",
     "Volatilidad": 0.90,
     "Motivo": "TVL muy bajo, volatilidad alta, riesgo de unlocks"
   },
   {
     "Token": "REZ",
-    "Narrativa_Sector": "restaking / AVS",
+    "Narrativa_Sector": "Restaking / AVS",
     "Riesgo": "EXTREMO",
     "Apalancamiento": "3×–5×",
     "Volatilidad": 0.85,
-    "Motivo": "supply enorme, movimientos bruscos"
+    "Motivo": "Supply enorme, movimientos bruscos"
   },
   {
     "Token": "WLD",
-    "Narrativa_Sector": "identidad / IA",
+    "Narrativa_Sector": "Identidad / IA",
     "Riesgo": "EXTREMO",
     "Apalancamiento": "3×–5×",
     "Volatilidad": 0.60,
-    "Motivo": "desbloqueos masivos + riesgo regulatorio"
+    "Motivo": "Desbloqueos masivos + riesgo regulatorio"
   },
   {
     "Token": "WCT",
-    "Narrativa_Sector": "interoperabilidad",
+    "Narrativa_Sector": "Interoperabilidad",
     "Riesgo": "ALTO",
     "Apalancamiento": "3×–4×",
     "Volatilidad": 0.80,
-    "Motivo": "token sin utilidad, volatilidad elevada"
+    "Motivo": "Token sin utilidad, volatilidad elevada y desbloqueos."
   },
   {
     "Token": "DYM",
-    "Narrativa_Sector": "modular / rollapps",
+    "Narrativa_Sector": "Modular / rollapps",
     "Riesgo": "ALTO",
     "Apalancamiento": "3×–4×",
     "Volatilidad": 0.75,
-    "Motivo": "ecosistema pequeño, mercado irregular"
+    "Motivo": "Falta de aplicación real e innovación. Poca atención."
   },
   {
     "Token": "SCR",
     "Narrativa_Sector": "L2 zk",
-    "Riesgo": "MEDIO-ALTO",
+    "Riesgo": "MEDIO",
     "Apalancamiento": "2×–3×",
     "Volatilidad": 0.55,
-    "Motivo": "saturación, liquidez media"
+    "Motivo": "Saturación de L2, falta innovación"
   },
   {
     "Token": "EIGEN",
-    "Narrativa_Sector": "restaking infra",
-    "Riesgo": "MEDIO-ALTO",
+    "Narrativa_Sector": "Restaking ETH",
+    "Riesgo": "MEDIO",
     "Apalancamiento": "2×–3×",
     "Volatilidad": 0.50,
-    "Motivo": "adopción incierta, depende del hype"
+    "Motivo": "Adopción incierta, sin aplicaciones relevantes"
   },
   {
     "Token": "ATOM",
     "Narrativa_Sector": "Cosmos Hub",
-    "Riesgo": "MEDIO-ALTO",
+    "Riesgo": "MEDIO",
     "Apalancamiento": "2×–3×",
     "Volatilidad": 0.35,
-    "Motivo": "token sin value capture, más estable"
+    "Motivo": "Token sin value capture, proyecto muerto. Inflación"
   },
   {
     "Token": "TIA",
-    "Narrativa_Sector": "modularidad",
+    "Narrativa_Sector": "Modularidad",
     "Riesgo": "MEDIO",
     "Apalancamiento": "2×",
     "Volatilidad": 0.40,
-    "Motivo": "hype modular bajando"
+    "Motivo": "Hype de modularidad bajando, sin utilidad real"
   }
 ]
