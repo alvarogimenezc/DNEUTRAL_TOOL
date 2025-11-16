@@ -89,10 +89,10 @@ while True:
                 value["Fechas"] = [fecha.isoformat() for fecha in value["Fechas"]]
 
         #Save the results in a shared volume
-        with open("/api_service/data_api.json", "w", encoding="utf-8") as f:
+        with open("/shared_data/data_api.json", "w", encoding="utf-8") as f:
             json.dump(output_json, f, ensure_ascii=False, indent=2)
 
         print(f"Data updated. Timestamp: {datetime.now()}")
 
         #Stop the code 1 hour until next update 3600s
-        time.sleep(60)
+        time.sleep(1)

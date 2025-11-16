@@ -1,0 +1,14 @@
+services:
+ api_calculator:
+
+    image:  imagen_apis                     #Previamente construida con el dockefile (build), revisar docker desktop OK
+    working_dir: /api_service
+    container_name: contenedor_api
+    volumes: 
+        - volumen_compartido:/shared_data   #Montamos el volumen compartido en una nueva carpeta /shared data a la altura de /api_service
+    restart: unless-stopped                 #Se auto-levanta si se para en algun momento (pérdida conexión por ejemplo)
+    
+
+#Declaramos el volumen compartido con nombre volumen_compartido, así será visible para el resto de servicios
+volumes:
+  volumen_compartido:
