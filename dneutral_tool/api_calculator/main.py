@@ -88,7 +88,8 @@ while True:
             if "Fechas" in value:
                 value["Fechas"] = [fecha.isoformat() for fecha in value["Fechas"]]
 
-        with open("shared_vol/data.json", "w", encoding="utf-8") as f:
+        #Save the results in a shared volume
+        with open("/api_service/data_api.json", "w", encoding="utf-8") as f:
             json.dump(output_json, f, ensure_ascii=False, indent=2)
 
         print(f"Data updated. Timestamp: {datetime.now()}")
