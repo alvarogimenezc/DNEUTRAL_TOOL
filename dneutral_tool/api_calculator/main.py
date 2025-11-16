@@ -95,4 +95,4 @@ while True:
         print(f"Data updated. Timestamp: {datetime.now()}")
 
         #Stop the code 1 hour until next update 3600s
-        time.sleep(1)
+        time.sleep(60)
