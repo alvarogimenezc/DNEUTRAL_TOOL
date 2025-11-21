@@ -1,27 +1,24 @@
 services:
- api_calculator:
-
-    image:  imagen_apis                     #Previamente construida con el dockefile (build), revisar docker desktop OK
+  api_calculator:
+    image: imagen_apis                       #Previamente construida con el Dockerfile
     working_dir: /api_service
     container_name: contenedor_api
-    volumes: 
-        - volumen_compartido:/shared_data   #Montamos el volumen compartido en una nueva carpeta /shared data a la altura de /api_service
-    restart: unless-stopped                 #Se auto-levanta si se para en algun momento (pérdida conexión por ejemplo)
-    
-streamlit_app:
+    volumes:
+      - volumen_compartido:/shared_data       #Montamos el volumen compartido
+    restart: unless-stopped                   #Se auto-levanta si se para
+
+  streamlit_app:
     image: streamlit_image
     working_dir: /frontend_service
     container_name: contenedor_frontend
     volumes:
-      - volumen_compartido:/shared_data     #Comparte el volumen con el backend
+      - volumen_compartido:/shared_data       #Comparte el volumen con el backend
     depends_on:
-      - api_calculator                      #Asegura que el backend arranque primero
+      - api_calculator                        #Asegura que el backend arranque primero
     ports:
-      - "8501:8501"                         #Expone el puerto de Streamlit
+      - "8501:8501"                           #Expone el puerto de Streamlit
     restart: unless-stopped
 
-#Declaramos el volumen compartido con nombre volumen_compartido, así será visible para el resto de servicios
+#Declaramos el volumen compartido con nombre volumen_compartido
 volumes:
-  - volumen_compartido:/shared_data
-
- 
+  volumen_compartido:
