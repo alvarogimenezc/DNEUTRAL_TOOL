@@ -1,8 +1,8 @@
 services:
   api_calculator:
-    image: imagen_apis                       #Previamente construida con el Dockerfile
+    image: imagen_apis                        #Previamente construida con el Dockerfile
     working_dir: /api_service
-    container_name: contenedor_api
+    container_name: contenedor_api            #Definimos el nombre del contenedor
     volumes:
       - volumen_compartido:/shared_data       #Montamos el volumen compartido
     restart: unless-stopped                   #Se auto-levanta si se para
@@ -16,9 +16,11 @@ services:
     depends_on:
       - api_calculator                        #Asegura que el backend arranque primero
     ports:
-      - "8501:8501"                           #Expone el puerto de Streamlit
+      - "8501:8501"                           #Mapea el puerto del contenedor a mi máquina para poder aceder a la web 
     restart: unless-stopped
 
 #Declaramos el volumen compartido con nombre volumen_compartido
 volumes:
   volumen_compartido:
+
+#Dificultad: La imagen es una foto fija de mi aplicación, si modifico la app necesito reconstruir la imagen

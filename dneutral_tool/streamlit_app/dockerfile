@@ -3,4 +3,7 @@ WORKDIR /frontend_service
 COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8501
-CMD ["streamlit run dashboard.py --server.port=8501"]
+CMD ["streamlit", "run", "dashboard.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+#Exponemos un puerto del contenedor para poder acceder al la web corriendo dentro de el desde mi maquina (host)
+#El mapeo de puertos se hace en el compose
