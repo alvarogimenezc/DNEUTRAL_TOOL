@@ -63,15 +63,8 @@ if key in dict_series:
         title=f"Funding Rate - {selected_moneda} ({selected_exchange})",
         template="plotly_dark",
     )
-    fig.update_traces(line=dict(width=2))
-    fig.update_layout(
-        title_font=dict(size=20),
-        hovermode="x unified",
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        margin=dict(l=40, r=40, t=60, b=40)
-    )
 
     st.plotly_chart(fig, width=True)
+
 else:
     pass

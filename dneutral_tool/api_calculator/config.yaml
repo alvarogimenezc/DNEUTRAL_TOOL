@@ -41,4 +41,4 @@ monedas:
   - ETHFI
 
 #Defaults at 14 days 
-granularidad: 1
+granularidad: 14
