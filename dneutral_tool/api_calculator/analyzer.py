@@ -101,3 +101,4 @@ def analyzer (moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid):
         delta_lig_hype.append(moneda)
     
     return(delta_para_hype, delta__para_lig, delta_lig_hype)
+    
