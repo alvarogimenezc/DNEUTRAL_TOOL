@@ -6,6 +6,13 @@ from pathlib import Path
 import time
 from datetime import datetime, timedelta
 import json
+from streamlit_autorefresh import st_autorefresh
+
+#Define format and isert title
+st.set_page_config(
+    page_title="Estrategias Delta Neutral",
+    layout="wide"
+)
 
 #We need to wait until the json file is available
 while not Path("/shared_data/data_api.json").exists():
@@ -25,9 +32,6 @@ ts_local = datetime.fromisoformat(timestamp) + timedelta(hours=1)
 ts_str = ts_local.strftime("%Y-%m-%d %H:%M")
 st.sidebar.success(f"Última actualización: {ts_str}")
 
-#Insert the web title
-st.title("Dashboard estrategias delta neutral")
-
 #Create the table to show the results, we need pandas lib 
 st.subheader("Tabla comprarativa resultados")
 df = pd.DataFrame(dataset_resultante, columns=["LARGO 📈", "CORTO 📉", "APR % 🔼", "MONEDA 🪙"])
@@ -35,9 +39,6 @@ st.dataframe(df)
 
 #Lets create the chart for a given coin/dex
 st.subheader("📈 Evolución de Fundings por Exchange y Moneda")
-
-if not dict_series:
-    st.warning("No hay datos disponibles para graficar.")
 
 # Obtenemos listas únicas de exchanges y monedas
 exchanges = sorted({v["Exchange"] for v in dict_series.values()})
@@ -64,10 +65,10 @@ if key in dict_series:
         template="plotly_dark",
     )
 
-    st.plotly_chart(fig, width=True)
+    st.plotly_chart(fig, width="stretch")
 
 else:
     pass
 
 #Refresh the data every 90 seconds
-count = st.autorefresh(interval=90_000, limit=None, key="data_refresh")
+count = st_autorefresh(interval=90000)
