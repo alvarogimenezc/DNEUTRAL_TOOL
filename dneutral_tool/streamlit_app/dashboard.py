@@ -7,7 +7,7 @@ import time
 from datetime import datetime, timedelta
 import json
 
-# We need to wait until the json file is available
+#We need to wait until the json file is available
 while not Path("/shared_data/data_api.json").exists():
     print("Esperando datos del backend... (se actualizará automáticamente)")
     time.sleep(30)  #30 secs wait
@@ -68,3 +68,6 @@ if key in dict_series:
 
 else:
     pass
+
+#Refresh the data every 90 seconds
+count = st.autorefresh(interval=90_000, limit=None, key="data_refresh")
