@@ -15,7 +15,22 @@ while True:
 
         monedas = config["monedas"]     
         granularidad = config["granularidad"]
-        dataset_resultante=[]
+        dataset_resultante_1=[]
+        dataset_resultante_2=[]
+        dataset_resultante_3=[]
+        dataset_resultante_4=[]
+        dataset_resultante_5=[]
+        dataset_resultante_6=[]
+        dataset_resultante_7=[]
+        dataset_resultante_8=[]
+        dataset_resultante_9=[]
+        dataset_resultante_10=[]
+        dataset_resultante_11=[]
+        dataset_resultante_12=[]
+        dataset_resultante_13=[]
+        dataset_resultante_14=[]
+
+
         dict_series={}
         cuenta_analisis=0
 
@@ -63,22 +78,77 @@ while True:
                 }
 
             
-            #Execute the analyzer, we need to agregate for the 14 periods
-            resultados=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
+            #Execute the analyzer for the 14 periods possible
+            for n in range(1, 15): 
 
-            #Join the results in one list, avoid empty results
-            for r in resultados:
-                if r!=[]:
-                   dataset_resultante.append(r)
+                periodos=(n)*24
+                resultados=analyzer(moneda, fundings_lighter[:periodos], fundings_paradex[:periodos], fundings_hyperliquid[:periodos])
+
+                #Join the results in one list, avoid empty results
+                for r in resultados:
+                    if r!=[] and n==1:
+                      dataset_resultante_1.append(r)
+                    if r!=[] and n==2:
+                      dataset_resultante_2.append(r)
+                    if r!=[] and n==3:
+                      dataset_resultante_3.append(r)
+                    if r!=[] and n==4:
+                      dataset_resultante_4.append(r)
+                    if r!=[] and n==5:
+                      dataset_resultante_5.append(r)
+                    if r!=[] and n==6:
+                      dataset_resultante_6.append(r)
+                    if r!=[] and n==7:
+                      dataset_resultante_7.append(r)
+                    if r!=[] and n==8:
+                      dataset_resultante_8.append(r)
+                    if r!=[] and n==9:
+                      dataset_resultante_9.append(r)
+                    if r!=[] and n==10:
+                      dataset_resultante_10.append(r)
+                    if r!=[] and n==11:
+                      dataset_resultante_11.append(r)
+                    if r!=[] and n==12:
+                      dataset_resultante_12.append(r)
+                    if r!=[] and n==13:
+                      dataset_resultante_13.append(r)
+                    if r!=[] and n==14:
+                      dataset_resultante_14.append(r)
 
         #Order by apr,
-        dataset_resultante.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_1.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_2.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_3.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_4.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_5.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_6.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_7.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_8.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_9.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_10.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_11.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_12.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_13.sort(key=lambda x: x[2], reverse=True)
+        dataset_resultante_14.sort(key=lambda x: x[2], reverse=True)
 
         #Save and consolidate the results on the shared volume to feed the streamlit app
         output_json={
             "timestamp": datetime.now(),
             "dict_series": dict_series,
-            "dataset_resultante": dataset_resultante
+            "dataset_resultante_1": dataset_resultante_1,
+            "dataset_resultante_2": dataset_resultante_2,
+            "dataset_resultante_3": dataset_resultante_3,
+            "dataset_resultante_4": dataset_resultante_4,
+            "dataset_resultante_5": dataset_resultante_5,
+            "dataset_resultante_6": dataset_resultante_6,
+            "dataset_resultante_7": dataset_resultante_7,
+            "dataset_resultante_8": dataset_resultante_8,
+            "dataset_resultante_9": dataset_resultante_9,
+            "dataset_resultante_10": dataset_resultante_10,
+            "dataset_resultante_11": dataset_resultante_11,
+            "dataset_resultante_12": dataset_resultante_12,
+            "dataset_resultante_13": dataset_resultante_13,
+            "dataset_resultante_14": dataset_resultante_14
         }
 
         #Datetime format is not recognized by json, we need to transform it into iso text
