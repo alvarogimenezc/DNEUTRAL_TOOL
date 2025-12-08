@@ -69,7 +69,7 @@ while True:
 
                 if f"periodo_{n}" not in dataset_resultante:
                         dataset_resultante[f"periodo_{n}"] = []
-                        
+
                 periodos=(n)*24
                 resultados=analyzer(moneda, fundings_lighter[:periodos], fundings_paradex[:periodos], fundings_hyperliquid[:periodos])
 
@@ -102,6 +102,3 @@ while True:
             json.dump(output_json, f, ensure_ascii=False, indent=2)
 
         print(f"Data updated. Timestamp: {datetime.now()}")
-
-        #Stop the code 10 minutes until next update 600 seconds
-        time.sleep(600)
