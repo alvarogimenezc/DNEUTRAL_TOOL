@@ -1,0 +1,21 @@
+{
+    // Define los perfiles disponibles
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell"
+        },
+        "Command Prompt": {
+            "source": "Command Prompt",
+            "icon": "terminal-cmd"
+        },
+        // Configuración de Git Bash
+        "Git Bash": {
+            "source": "Git Bash"
+            // Opcionalmente, puedes especificar la ruta si VS Code no la encuentra:
+            // "path": "C:\\Program Files\\Git\\bin\\bash.exe"
+        }
+    },
+    // Establece Git Bash como el perfil por defecto
+    "terminal.integrated.defaultProfile.windows": "Git Bash"
+}
