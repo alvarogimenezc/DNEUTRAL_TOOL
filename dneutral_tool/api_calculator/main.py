@@ -63,7 +63,6 @@ while True:
                     "Fechas": fechas_lighter
                 }
 
-            
             #Execute the analyzer for the 14 periods possible
             for n in range(1, 15): 
 
@@ -71,7 +70,7 @@ while True:
                         dataset_resultante[f"periodo_{n}"] = []
 
                 periodos=(n)*24
-                resultados=analyzer(moneda, fundings_lighter[:periodos], fundings_paradex[:periodos], fundings_hyperliquid[:periodos])
+                resultados=analyzer(moneda, fundings_lighter[len(fundings_lighter)-periodos:], fundings_paradex[len(fundings_paradex)-periodos:], fundings_hyperliquid[len(fundings_hyperliquid)-periodos:])
 
                 #Join the results in one list, avoid empty results
                 for r in resultados:

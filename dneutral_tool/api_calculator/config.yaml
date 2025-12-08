@@ -3,9 +3,9 @@ monedas:
   - BTC
   - ETH
   - KAITO
-  - ZORA
-  - IP
-  - SOL
+  # - ZORA
+  # - IP
+  # - SOL
   # - TRUMP
   # - BNB
   # - MORPHO
