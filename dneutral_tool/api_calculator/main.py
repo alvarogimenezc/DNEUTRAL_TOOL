@@ -62,7 +62,8 @@ while True:
                     "Fechas": fechas_lighter
                 }
 
-            #Execute the analyzer
+            
+            #Execute the analyzer, we need to agregate for the 14 periods
             resultados=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
 
             #Join the results in one list, avoid empty results
