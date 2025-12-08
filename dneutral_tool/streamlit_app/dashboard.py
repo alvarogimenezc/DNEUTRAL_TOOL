@@ -10,9 +10,13 @@ from streamlit_autorefresh import st_autorefresh
 
 #Define format and isert title
 st.set_page_config(
-    page_title="Estrategias Delta Neutral",
+    page_title="Herramienta",
+    page_icon="📈",
     layout="wide"
 )
+
+st.title("📊 DNeutral tool - dashboard para estrategias delta neutral")
+st.subheader("Obtén una rentabilidad positiva abriendo largos y cortos en diferentes exchanges")
 
 #We need to wait until the json file is available
 while not Path("/shared_data/data_api.json").exists():
@@ -30,7 +34,7 @@ timestamp=input["timestamp"]
 #Convertimos el texto ISO a datetime y ajustamos una hora, lo formateamos a 'YYYY-MM-DD HH:MM' y lo metemos en un sidebar
 ts_local = datetime.fromisoformat(timestamp) + timedelta(hours=1)
 ts_str = ts_local.strftime("%Y-%m-%d %H:%M")
-st.sidebar.success(f"Última actualización: {ts_str}")
+st.write(f"Última actualización: {ts_str}")
 
 #Obtain the granularity selected by the user
 granularidad=st.slider("Seleccione el rango de analisis", 1, 14)
@@ -43,7 +47,7 @@ st.dataframe(df)
 #Lets create the chart for a given coin/dex
 st.subheader("📈 Evolución de Fundings por Exchange y Moneda")
 
-# Obtenemos listas únicas de exchanges y monedas, we need to slice them for the selected granulatity, pending
+# Obtenemos listas únicas de exchanges y monedas
 exchanges = sorted({v["Exchange"] for v in dict_series.values()})
 monedas = sorted({v["Moneda"] for v in dict_series.values()})
 
