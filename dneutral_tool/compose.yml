@@ -16,7 +16,7 @@ services:
     depends_on:
       - api_calculator                        #Asegura que el backend arranque primero
     ports:
-      - "8501:8501"                           #Mapea el puerto del contenedor a mi máquina para poder aceder a la web 
+      - "8502:8502"                           #Mapea el puerto del contenedor a mi máquina para poder aceder a la web 
     restart: unless-stopped
 
 #Declaramos el volumen compartido con nombre volumen_compartido
