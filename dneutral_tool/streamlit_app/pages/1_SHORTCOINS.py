@@ -1,8 +1,8 @@
 #New section about shortable coins with high risk of dump
 import streamlit as st
 import pandas as pd
+import json 
 
-st.markdown("---")
 st.subheader("🚨 Altcoins con Fundamentales Débiles / Riesgo Alto")
 
 try:
@@ -17,4 +17,5 @@ try:
     st.dataframe(df_short)
 
 except: 
-    pass
+     st.error(f"Error al cargar datos")
+    

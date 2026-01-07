@@ -3,42 +3,42 @@ monedas:
   - BTC
   - ETH
   - KAITO
-  # - ZORA
-  # - IP
-  # - SOL
-  # - TRUMP
-  # - BNB
-  # - MORPHO
-  # - 0G
-  # - MET
-  # - AVNT
-  # - WLD
-  # - STBL
-  # - ZEC
-  # - TIA
-  # - HYPE
-  # - PAXG
-  # - LINK
-  # - JUP
-  # - OM
-  # - BERA
-  # - MEGA
-  # - HYPER
-  # - XMR
-  # - STRK
-  # - LINEA
-  # - GRASS
-  # - PURR
-  # - WLFI
-  # - TON
-  # - SKY
-  # - DOT
-  # - ZRO 
-  # - ENA
-  # - POPCAT
-  # - WIF 
-  # - MELANIA
-  # - ETHFI
+  - ZORA
+  - IP
+  - SOL
+  - TRUMP
+  - BNB
+  - MORPHO
+  - 0G
+  - MET
+  - AVNT
+  - WLD
+  - STBL
+  - ZEC
+  - TIA
+  - HYPE
+  - PAXG
+  - LINK
+  - JUP
+  - OM
+  - BERA
+  - MEGA
+  - HYPER
+  - XMR
+  - STRK
+  - LINEA
+  - GRASS
+  - PURR
+  - WLFI
+  - TON
+  - SKY
+  - DOT
+  - ZRO 
+  - ENA
+  - POPCAT
+  - WIF 
+  - MELANIA
+  - ETHFI
 
 #Defaults at 14 days 
 granularidad: 14
