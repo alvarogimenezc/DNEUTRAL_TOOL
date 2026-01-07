@@ -37,14 +37,14 @@ ts_str = ts_local.strftime("%Y-%m-%d %H:%M")
 st.write(f"Última actualización: {ts_str}")
 
 #Obtain the granularity selected by the user
-granularidad=st.slider("Seleccione el rango de analisis", 1, 14)
+granularidad=st.slider("Seleccione el rango de analisis", 1, 5)
 
 #Create the table to show the results, we need pandas lib. Filter by the selected granularity
 st.subheader("Tabla comprarativa resultados")
 df = pd.DataFrame(dataset_resultante[f"periodo_{granularidad}"], columns=["LARGO 📈", "CORTO 📉", "APR % 🔼", "MONEDA 🪙"])
 st.dataframe(df)
 
-#Lets create the chart for a given coin/dex
+#Lets create the chart for a given coin and pair of dex
 st.subheader("📈 Evolución de Fundings por Exchange y Moneda")
 
 #Define the filters of the chart
@@ -60,24 +60,36 @@ exchange1, exchange2 = selected_exchange.split("-")
 key1 = f"{selected_moneda}_{exchange1}"
 key2 = f"{selected_moneda}_{exchange2}"
 
-if key in dict_series:
-    data = dict_series[key]
-    df_plot = pd.DataFrame({
-        "Fecha": data["Fechas"],
-        "Funding": data["Fundings"]
+if key1 in dict_series and key2 in dict_series:
+    data1 = dict_series[key1]
+    data2 = dict_series[key2]
+
+    df1 = pd.DataFrame({
+        "Fecha": pd.to_datetime(data1["Fechas"], format="mixed"),
+        "Funding": data1["Fundings"],
+        "Exchange": exchange1
     })
+
+    df2 = pd.DataFrame({
+        "Fecha": pd.to_datetime(data2["Fechas"], format="mixed"),
+        "Funding": data2["Fundings"],
+        "Exchange": exchange2
+    })
+
+    df_plot = pd.concat([df1, df2])
 
     fig = px.line(
         df_plot,
         x="Fecha",
         y="Funding",
-        title=f"Funding Rate - {selected_moneda} ({selected_exchange})",
-        template="plotly_dark",
+        color="Exchange",
+        title=f"Funding Rate - {selected_moneda} ({exchange1} vs {exchange2})",
+        template="plotly_dark"
     )
 
-    st.plotly_chart(fig, width="stretch")
+    st.plotly_chart(fig, use_container_width=True)
 
-else:
+else: 
     pass
 
 #Refresh the data every 90 seconds
