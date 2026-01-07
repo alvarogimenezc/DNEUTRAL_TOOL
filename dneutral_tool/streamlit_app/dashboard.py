@@ -12,7 +12,7 @@ from streamlit_autorefresh import st_autorefresh
 st.set_page_config(
     page_title="Herramienta",
     page_icon="📈",
-    layout="wide"
+    layout="wide "
 )
 
 st.title("📊 DNeutral tool - dashboard para estrategias delta neutral")
