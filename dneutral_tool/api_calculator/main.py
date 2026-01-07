@@ -1,87 +1,103 @@
 import yaml
+import json
+from datetime import datetime
 import time
 
 from hyperliquid import hyperliquid
 from lighter import lighter
 from paradex import paradex
 from analyzer import analyzer
-from dashboard import dashboard
 
-#Save the initial time
-tiempo_inicio = time.time()
+while True: 
+        #Load the configuration params
+        with open("config.yaml", "r", encoding="utf-8") as file:
+            config = yaml.safe_load(file)
 
-#Load the configuration params
-with open("config.yaml", "r", encoding="utf-8") as file:
-    config = yaml.safe_load(file)
+        monedas = config["monedas"]     
+        granularidad = config["granularidad"]
+        dataset_resultante={}
 
-monedas = config["monedas"]
-cuenta_monedas=len(config["monedas"])     #To track the execution
-granularidad = config["granularidad"]
-dataset_resultante=[]
-dict_series={}
-cuenta_analisis=0
+        dict_series={}
+        cuenta_analisis=0
 
-#Iterate over the configuration data
-for moneda in monedas: 
-    
-    try:
-      fundings_hyperliquid, fechas_hyperliquid= hyperliquid(moneda, granularidad)
-    except: 
-      fundings_hyperliquid, fechas_hyperliquid=[], []
+        #Iterate over the configuration data
+        for moneda in monedas: 
+            
+            try:
+                fundings_hyperliquid, fechas_hyperliquid= hyperliquid(moneda, granularidad)
+            except: 
+                fundings_hyperliquid, fechas_hyperliquid=[], []
 
-    try:
-      fundings_lighter, fechas_lighter= lighter(moneda, granularidad)
-    except:
-        fundings_lighter, fechas_lighter=[], []
+            try:
+                fundings_lighter, fechas_lighter= lighter(moneda, granularidad)
+            except:
+                fundings_lighter, fechas_lighter=[], []
 
-    try:
-        fundings_paradex, fechas_paradex= paradex(moneda, granularidad)
-    except:
-        fundings_paradex, fechas_paradex=[], []
+            try:
+                fundings_paradex, fechas_paradex= paradex(moneda, granularidad)
+            except:
+                fundings_paradex, fechas_paradex=[], []
 
-    #We need persistency on the series returned by the api for the charts, saved in a dict
-    if fundings_hyperliquid:
-        dict_series[f"{moneda}_Hyperliquid"] = {
-            "Exchange": "Hyperliquid",
-            "Moneda": moneda,
-            "Fundings": fundings_hyperliquid,
-            "Fechas": fechas_hyperliquid
+            #We need persistency on the series returned by the api for the charts, saved in a dict
+            if fundings_hyperliquid:
+                dict_series[f"{moneda}_Hyperliquid"] = {
+                    "Exchange": "Hyperliquid",
+                    "Moneda": moneda,
+                    "Fundings": fundings_hyperliquid,
+                    "Fechas": fechas_hyperliquid
+                }
+
+            if fundings_paradex:
+                dict_series[f"{moneda}_Paradex"] = {
+                    "Exchange": "Paradex",
+                    "Moneda": moneda,
+                    "Fundings": fundings_paradex,
+                    "Fechas": fechas_paradex
+                }
+
+            if fundings_lighter:
+                dict_series[f"{moneda}_Lighter"] = {
+                    "Exchange": "Lighter",
+                    "Moneda": moneda,
+                    "Fundings": fundings_lighter,
+                    "Fechas": fechas_lighter
+                }
+
+            #Execute the analyzer for the 14 periods possible
+            for n in range(1, 15): 
+
+                if f"periodo_{n}" not in dataset_resultante:
+                        dataset_resultante[f"periodo_{n}"] = []
+
+                periodos=(n)*24
+                resultados=analyzer(moneda, fundings_lighter[len(fundings_lighter)-periodos:], fundings_paradex[len(fundings_paradex)-periodos:], fundings_hyperliquid[len(fundings_hyperliquid)-periodos:])
+
+                #Join the results in one list, avoid empty results
+                for r in resultados:
+                    if r!=[]:
+                     dataset_resultante[f"periodo_{n}"].append(r)
+                    
+        #Order by apr,
+        for i in dataset_resultante.values():
+            i.sort(key=lambda x: x[2], reverse=True)
+
+        #Save and consolidate the results on the shared volume to feed the streamlit app
+        output_json={
+            "timestamp": datetime.now(),
+            "dict_series": dict_series,
+            "dataset_resultante": dataset_resultante,
         }
 
-    if fundings_paradex:
-        dict_series[f"{moneda}_Paradex"] = {
-            "Exchange": "Paradex",
-            "Moneda": moneda,
-            "Fundings": fundings_paradex,
-            "Fechas": fechas_paradex
-        }
+        #Datetime format is not recognized by json, we need to transform it into iso text
+        output_json["timestamp"] = output_json["timestamp"].isoformat()
 
-    if fundings_lighter:
-        dict_series[f"{moneda}_Lighter"] = {
-            "Exchange": "Lighter",
-            "Moneda": moneda,
-            "Fundings": fundings_lighter,
-            "Fechas": fechas_lighter
-        }
+        #Convert all datetimes inside dict_series and dataset_resultante manually
+        for key, value in output_json["dict_series"].items():
+            if "Fechas" in value:
+                value["Fechas"] = [fecha.isoformat() for fecha in value["Fechas"]]
 
-    #Execute the analyzer
-    resultados=analyzer(moneda, fundings_lighter, fundings_paradex, fundings_hyperliquid)
+        #Save the results in a shared volume
+        with open("/shared_data/data_api.json", "w", encoding="utf-8") as f:
+            json.dump(output_json, f, ensure_ascii=False, indent=2)
 
-    #Join the results in one list and order by apr, avoid empty results
-    for r in resultados:
-        if r!=[]:
-           dataset_resultante.append(r)
-
-    cuenta_analisis+=1
-   
-    #Show the progress for each 4 token group
-    if cuenta_analisis % 4 == 0 or cuenta_analisis==1 or cuenta_analisis==cuenta_monedas:
-       print(f"{round((cuenta_analisis/cuenta_monedas)*100, 2)} % completado...")
-
-    dataset_resultante.sort(key=lambda x: x[2], reverse=True)
-
-dashboard(dataset_resultante, dict_series)
-
-#Show the execution time
-tiempo_fin = time.time()
-print(f"El código tardó: {round((tiempo_fin - tiempo_inicio)/60, 1)} minutos")
+        print(f"Data updated. Timestamp: {datetime.now()}")
